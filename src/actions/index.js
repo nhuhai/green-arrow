@@ -5,7 +5,7 @@ export const FETCH_ITEM = 'fetch-item';
 export const CREATE_ITEM = 'create-item';
 export const DELETE_ITEM = 'delete-item';
 
-const ROOT_URL = 'http://localhost:3000/items';
+const ROOT_URL = 'http://localhost:8443/items';
 
 export function fetchItems() {
   const request = axios.get(ROOT_URL);
@@ -16,3 +16,15 @@ export function fetchItems() {
   };
 }
 
+export function createItem(values, callback) {
+  console.log(values);
+
+  const request = axios
+    .post(ROOT_URL, values)
+    .then(() => callback());
+
+  return {
+    type: CREATE_ITEM,
+    payload: request
+  };
+}
