@@ -8,6 +8,22 @@ export default function (state = {}, action) {
         return state;
       }
       return _.mapKeys(action.payload.data.items, '_id');
+
+    case DELETE_ITEM:
+      if (action.error) {
+        return state;
+      }
+      return _.omit(state, action.payload);
+
+    case FETCH_ITEM:
+      if (action.error) {
+        return state;
+      }
+
+      const item = action.payload.data.item;
+
+      return { ...state, [item._id]: item };
+
     default:
       return state;
   }

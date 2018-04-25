@@ -17,14 +17,31 @@ export function fetchItems() {
 }
 
 export function createItem(values, callback) {
-  console.log(values);
-
   const request = axios
     .post(ROOT_URL, values)
-    .then(() => callback());
+    .then(callback);
 
   return {
     type: CREATE_ITEM,
     payload: request
+  };
+}
+
+export function fetchItem(id) {
+  const request = axios.get(`${ROOT_URL}/${id}`);
+
+  return {
+    type: FETCH_ITEM,
+    payload: request
+  };
+}
+
+export function deleteItem(id, callback) {
+  axios.delete(`${ROOT_URL}/${id}`)
+    .then(() => callback());
+
+  return {
+    type: DELETE_ITEM,
+    payload: id
   };
 }

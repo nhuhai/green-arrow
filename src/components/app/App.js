@@ -7,6 +7,7 @@ import promise from 'redux-promise';
 import reducers from '../../reducers';
 import ItemsIndex from '../../containers/items-index/items-index';
 import ItemsNew from '../../containers/items-new/items-new';
+import ItemDetail from '../../containers/item-detail/item-detail';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
@@ -16,8 +17,11 @@ class App extends Component {
       <Provider className="app" store={createStoreWithMiddleware(reducers)}>
         <BrowserRouter>
           <div>
-            <Route path='/items/new' component={ItemsNew} />
-            <Route path='/items' component={ItemsIndex} />
+            <Switch>
+              <Route path='/items/new' component={ItemsNew} />
+              <Route path='/items/:id' component={ItemDetail} />
+              <Route path='/items' component={ItemsIndex} />
+            </Switch>
           </div>
         </BrowserRouter>
       </Provider>
