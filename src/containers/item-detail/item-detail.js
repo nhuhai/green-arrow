@@ -33,7 +33,18 @@ class ItemDetail extends Component {
         >
           Delete Item
         </button>
+        <br />
+        <br />
         <h3>{item.name}</h3>
+        <ul>
+          <li>Price: {item.price}</li>
+          <li>Price1: {item.price1}</li>
+          <li>Price2: {item.price2}</li>
+          <li>Price3: {item.price3}</li>
+          <li>Price4: {item.price4}</li>
+          <li>Provider: {item.provider}</li>
+          <li>Quantity: {item.quantity}</li>
+        </ul>
       </div>
     );
   }

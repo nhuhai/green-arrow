@@ -35,6 +35,41 @@ class ItemsNew extends Component {
           label='Name for item'
           name='name'
           component={this.renderField} />
+
+        <Field
+          label='Price'
+          name='price'
+          component={this.renderField} />
+
+        <Field
+          label='Price 1'
+          name='price1'
+          component={this.renderField} />
+
+        <Field
+          label='Price 2'
+          name='price2'
+          component={this.renderField} />
+
+        <Field
+          label='Price 3'
+          name='price 3'
+          component={this.renderField} />
+
+        <Field
+          label='Price 4'
+          name='price4'
+          component={this.renderField} />
+
+        <Field
+          label='Provider'
+          name='provider'
+          component={this.renderField} />
+
+        <Field
+          label='Quantity'
+          name='quantify'
+          component={this.renderField} />
         <button type='submit' className='btn btn-primary'>Submit</button>
         <Link to='/items' className='btn btn-danger'>Cancel</Link>
       </form>
