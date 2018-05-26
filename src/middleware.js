@@ -12,7 +12,7 @@ const promiseMiddleware = store => next => action => {
     store.dispatch({ type: ASYNC_START, subtype: action.type });
 
     const currentView = store.getState().viewChangeCounter;
-    const skipTracking = action.skipTracking;
+    const skipTracking = action.skipTracking; // what's this for?
 
     action.payload.then(
       res => {
@@ -25,7 +25,7 @@ const promiseMiddleware = store => next => action => {
         console.log('RESULT', res);
         action.payload = res;
         store.dispatch({ type: ASYNC_END, promise: action.payload });
-        store.dispatch(action);
+        store.dispatch(action); // why?
       },
       error => {
         const currentState = store.getState();
@@ -48,6 +48,8 @@ const promiseMiddleware = store => next => action => {
 
     return;
   }
+
+  next(action);
 };
 
 const localStorageMiddleware = store => next => action => {
