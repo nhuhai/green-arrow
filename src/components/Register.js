@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ListErrors from './ListErrors';
 import agent from '../agent';
 import {
-  REGISTER
+  REGISTER,
+  UPDATE_FIELD_AUTH
 } from '../constants/actionTypes';
 
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
+  onChangeEmail: value =>
+    dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
+  onChangePassword: value =>
+    dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
+  onChangeUsername: value =>
+    dispatch({ type: UPDATE_FIELD_AUTH, key: 'username', value }),
   onSubmit: (username, email, password) => {
     const payload = agent.Auth.register(username, email, password);
     dispatch({ type: REGISTER, payload });
@@ -16,19 +24,28 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Register extends Component {
-  constructor() {
-    super();
-    this.submitForm = (username, email, password) => event => {
-      event.preventDefault();
-      this.props.onSubmit(username, email, password);
-    };
+  changeUsername(event) {
+    this.props.onChangeUsername(event.target.value);
   }
 
-  render() {
-    const username = this.props.username;
-    const email = this.props.email;
-    const password = this.props.password;
+  changeEmail(event) {
+    this.props.onChangeEmail(event.target.value);
+  }
 
+  changePassword(event) {
+    this.props.onChangePassword(event.target.value);
+  }
+
+  submitForm(event) {
+    event.preventDefault();
+    const { username, email, password } = this.props;
+
+    this.props.onSubmit(username, email, password);
+  }
+
+  submitForm
+
+  render() {
     return (
       <div className="auth-page">
         <div className="container page">
@@ -42,7 +59,9 @@ class Register extends Component {
                 </Link>
               </p>
 
-              <form onSubmit={this.submitForm(username, email, password)}>
+              <ListErrors errors={this.props.errors} />
+
+              <form onSubmit={this.submitForm.bind(this)}>
                 <fieldset>
 
                   <fieldset className="form-group">
@@ -51,7 +70,7 @@ class Register extends Component {
                       type="text"
                       placeholder="Username"
                       value={this.props.username}
-                      onChange={this.changeUsername} />
+                      onChange={this.changeUsername.bind(this)} />
                   </fieldset>
 
                   <fieldset className="form-group">
@@ -60,7 +79,7 @@ class Register extends Component {
                       type="email"
                       placeholder="Email"
                       value={this.props.email}
-                      onChange={this.changeEmail} />
+                      onChange={this.changeEmail.bind(this)} />
                   </fieldset>
 
                   <fieldset className="form-group">
@@ -69,7 +88,7 @@ class Register extends Component {
                       type="password"
                       placeholder="Password"
                       value={this.props.password}
-                      onChange={this.changePassword} />
+                      onChange={this.changePassword.bind(this)} />
                   </fieldset>
 
                   <button
