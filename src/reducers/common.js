@@ -2,7 +2,8 @@ import {
   APP_LOAD,
   REGISTER,
   REGISTER_PAGE_UNLOADED,
-  NULLIFY_REDIRECT
+  NULLIFY_REDIRECT,
+  LOGOUT
 } from "../constants/actionTypes";
 
 const defaultState = {
@@ -37,6 +38,9 @@ export default (state = defaultState, action) => {
 
     case REGISTER_PAGE_UNLOADED:
       return { ...state, viewChangeCounter: state.viewChangeCounter + 1 };
+
+    case LOGOUT:
+      return { ...state, redirectTo: '/', token: null, currentUser: null};
 
     default:
       return state;

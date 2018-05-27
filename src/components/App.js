@@ -6,6 +6,7 @@ import { APP_LOAD, NULLIFY_REDIRECT } from '../constants/actionTypes';
 import Header from './Header';
 import Login from './Login';
 import Register from './Register';
+import Settings from './Settings';
 import { store } from '../store';
 import agent from '../agent';
 
@@ -55,6 +56,7 @@ class App extends Component {
           <Switch>
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
+            <Route path='/settings' component={Settings} />
           </Switch>
         </div>
       );
