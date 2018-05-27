@@ -1,32 +1,47 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ListErrors from './ListErrors';
 import agent from '../agent';
 import {
-  LOGIN
+  LOGIN,
+  LOGIN_PAGE_UNLOADED,
+  UPDATE_FIELD_AUTH
 } from '../constants/actionTypes';
 
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
+  onChangeEmail: value =>
+    dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
+  onChangePassword: value =>
+    dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
   onSubmit: (email, password) =>
-    dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) })
+    dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
+  onUnload: () =>
+    dispatch({ type: LOGIN_PAGE_UNLOADED })
 });
 
 class Login extends Component {
-  constructor() {
-    super();
+  componentWillUnmount() {
+    this.props.onUnload();
+  }
 
-    this.submitForm = (email, password) => event => {
-      event.preventDefault();
-      this.props.onSubmit(email, password);
-    };
+  changeEmail(event) {
+    this.props.onChangeEmail(event.target.value);
+  }
+
+  changePassword(event) {
+    this.props.onChangePassword(event.target.value);
+  }
+
+  submitForm(event) {
+    event.preventDefault();
+    const { email, password } = this.props;
+    this.props.onSubmit(email, password);
   }
 
   render() {
-    const email = this.props.email;
-    const password = this.props.password;
-
     return (
       <div className='auth-page'>
         <div className='container page'>
@@ -40,15 +55,15 @@ class Login extends Component {
                 </Link>
               </p>
 
-              <form onSubmit={this.submitForm(email, password)}>
+              <form onSubmit={this.submitForm.bind(this)}>
                 <fieldset>
                   <fieldset className='form-group'>
                     <input
                       className='form-control form-control-lg'
                       type='email'
                       placeholder='Email'
-                      value={email}
-                      onChange={this.changeEmail} />
+                      value={this.props.email}
+                      onChange={this.changeEmail.bind(this)} />
                   </fieldset>
 
                   <fieldset className='form-group'>
@@ -56,8 +71,8 @@ class Login extends Component {
                       className='form-control form-control-lg'
                       type='password'
                       placeholder='Password'
-                      value={password}
-                      onChange={this.changePassword} />
+                      value={this.props.password}
+                      onChange={this.changePassword.bind(this)} />
                   </fieldset>
 
                   <button

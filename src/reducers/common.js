@@ -3,7 +3,10 @@ import {
   REGISTER,
   REGISTER_PAGE_UNLOADED,
   NULLIFY_REDIRECT,
-  LOGOUT
+  LOGOUT,
+  LOGIN,
+  LOGIN_PAGE_UNLOADED,
+  SETTINGS_PAGE_UNLOADED
 } from "../constants/actionTypes";
 
 const defaultState = {
@@ -28,6 +31,7 @@ export default (state = defaultState, action) => {
     case NULLIFY_REDIRECT:
       return { ...state, redirectTo: null };
 
+    case LOGIN:
     case REGISTER:
       return {
         ...state,
@@ -36,11 +40,13 @@ export default (state = defaultState, action) => {
         currentUser: action.error ? null : action.payload.user
       };
 
-    case REGISTER_PAGE_UNLOADED:
-      return { ...state, viewChangeCounter: state.viewChangeCounter + 1 };
-
     case LOGOUT:
       return { ...state, redirectTo: '/', token: null, currentUser: null};
+
+    case LOGIN_PAGE_UNLOADED:
+    case SETTINGS_PAGE_UNLOADED:
+    case REGISTER_PAGE_UNLOADED:
+      return { ...state, viewChangeCounter: state.viewChangeCounter + 1 };
 
     default:
       return state;

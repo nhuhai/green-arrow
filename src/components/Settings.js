@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import agent from '../agent';
 import {
-  LOGOUT
+  LOGOUT,
+  SETTINGS_SAVED,
+  SETTINGS_PAGE_UNLOADED,
 } from '../constants/actionTypes';
 
 const mapStateToProps = state => ({
@@ -11,10 +13,15 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onClickLogout: () => dispatch({ type: LOGOUT })
+  onClickLogout: () => dispatch({ type: LOGOUT }),
+  onUnload: () => dispatch({ type: SETTINGS_PAGE_UNLOADED })
 });
 
 class Settings extends Component {
+  componentWillUnmount() {
+    this.props.onUnload();
+  }
+
   render() {
     return (
       <div className='settings-page'>
