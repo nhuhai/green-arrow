@@ -19,7 +19,9 @@ export default (state = defaultState, action) => {
     case APP_LOAD:
       return {
         ...state,
-        appLoaded: true
+        appLoaded: true,
+        token: action.token || null,
+        currentUser: action.payload ? action.payload.user : null
       };
 
     case NULLIFY_REDIRECT:

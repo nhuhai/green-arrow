@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
       }
       return state;
 
-      case REGISTER:
+    case REGISTER:
       return {
         ...state,
         inProgress: false,
