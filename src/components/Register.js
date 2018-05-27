@@ -5,7 +5,8 @@ import ListErrors from './ListErrors';
 import agent from '../agent';
 import {
   REGISTER,
-  UPDATE_FIELD_AUTH
+  REGISTER_PAGE_UNLOADED,
+  UPDATE_FIELD_AUTH,
 } from '../constants/actionTypes';
 
 const mapStateToProps = state => ({ ...state.auth });
@@ -20,10 +21,16 @@ const mapDispatchToProps = dispatch => ({
   onSubmit: (username, email, password) => {
     const payload = agent.Auth.register(username, email, password);
     dispatch({ type: REGISTER, payload });
-  }
+  },
+  onUnload: () =>
+    dispatch({ type: REGISTER_PAGE_UNLOADED })
 });
 
 class Register extends Component {
+  componentWillUnmount() {
+    this.props.onUnload();
+  }
+
   changeUsername(event) {
     this.props.onChangeUsername(event.target.value);
   }
@@ -42,8 +49,6 @@ class Register extends Component {
 
     this.props.onSubmit(username, email, password);
   }
-
-  submitForm
 
   render() {
     return (

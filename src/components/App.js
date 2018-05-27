@@ -1,27 +1,47 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import { APP_LOAD } from '../constants/actionTypes';
+import { push } from 'react-router-redux';
+import { APP_LOAD, NULLIFY_REDIRECT } from '../constants/actionTypes';
 import Header from './Header';
 import Login from './Login';
 import Register from './Register';
+import { store } from '../store';
+import agent from '../agent';
 
 const mapStateToProps = state => {
+  const { appName, appLoaded, currentUser, redirectTo } = state.common;
+
   return {
-    appName: state.common.appName,
-    appLoaded: state.common.appLoaded,
-    currentUser: state.common.currentUser
+    appName,
+    appLoaded,
+    currentUser,
+    redirectTo
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   onLoad: (payload, token) =>
-    dispatch({ type: APP_LOAD, payload, token, skipTracking: true })
+    dispatch({ type: APP_LOAD, payload, token, skipTracking: true }),
+  nullifyRedirect: () =>
+    dispatch({ type: NULLIFY_REDIRECT })
 });
 
 class App extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.redirectTo) {
+      store.dispatch(push(nextProps.redirectTo));
+      this.props.nullifyRedirect();
+    }
+  }
+
   componentWillMount() {
-    this.props.onLoad(null, null);
+    const token = window.localStorage.getItem('jwt');
+    if (token) {
+      agent.setToken(token);
+    }
+
+    this.props.onLoad(token ? agent.Auth.current() : null, token);
   }
 
   render() {
