@@ -46,7 +46,11 @@ const Articles = {
   all: page =>
     requests.get(`/articles?${limit(10, page)}`),
   feed: () =>
-    requests.get(`/articles/feed?${limit(10)}`)
+    requests.get(`/articles/feed?${limit(10)}`),
+  favorite: slug =>
+    requests.post(`/articles/${slug}/favorite`),
+  unfavorite: slug =>
+    requests.del(`/articles/${slug}/favorite`)
 };
 
 export default {

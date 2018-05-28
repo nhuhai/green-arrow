@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../agent';
 import Banner from './Banner';
+import MainView from './MainView';
 import Tags from './Tags';
 import {
   HOME_PAGE_LOADED,
@@ -43,7 +44,7 @@ class Home extends Component {
 
         <div className='container page'>
           <div className='row'>
-            {/* <MainView /> */}
+            <MainView />
 
             <div className='col-md-3'>
               <div className='sidebar'>
