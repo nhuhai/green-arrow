@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import { APP_LOAD, NULLIFY_REDIRECT } from '../constants/actionTypes';
 import Header from './Header';
+import Home from './Home';
 import Login from './Login';
 import Register from './Register';
 import Settings from './Settings';
@@ -54,6 +55,7 @@ class App extends Component {
             currentUser={this.props.currentUser} />
 
           <Switch>
+            <Route exact path='/' component={Home} />
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
             <Route path='/settings' component={Settings} />

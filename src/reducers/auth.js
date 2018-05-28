@@ -3,7 +3,8 @@ import {
   ASYNC_START,
   UPDATE_FIELD_AUTH,
   LOGIN,
-  REGISTER_PAGE_UNLOADED
+  REGISTER_PAGE_UNLOADED,
+  LOGIN_PAGE_UNLOADED
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -24,6 +25,7 @@ export default (state = initialState, action) => {
       }
       return state;
 
+    case LOGIN:
     case REGISTER:
       return {
         ...state,
@@ -31,6 +33,7 @@ export default (state = initialState, action) => {
         errors: action.error ? action.payload.errors : null
       };
 
+    case LOGIN_PAGE_UNLOADED:
     case REGISTER_PAGE_UNLOADED:
       return initialState;
 

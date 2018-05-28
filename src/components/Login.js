@@ -55,6 +55,8 @@ class Login extends Component {
                 </Link>
               </p>
 
+              <ListErrors errors={this.props.errors} />
+
               <form onSubmit={this.submitForm.bind(this)}>
                 <fieldset>
                   <fieldset className='form-group'>

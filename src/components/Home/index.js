@@ -1,11 +1,10 @@
-import Banner from './Banner';
-import React from 'react';
-import agent from '../../agent';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import agent from '../../agent';
+import Banner from './Banner';
 import {
   HOME_PAGE_LOADED,
-  HOME_PAGE_UNLOADED,
-  APPLY_TAG_FILTER
+  HOME_PAGE_UNLOADED
 } from '../../constants/actionTypes';
 
 const Promise = global.Promise;
@@ -17,22 +16,19 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onClickTag: (tag, pager, payload) =>
-    dispatch({ type: APPLY_TAG_FILTER, tag, pager, payload }),
   onLoad: (tab, pager, payload) =>
     dispatch({ type: HOME_PAGE_LOADED, tab, pager, payload }),
   onUnload: () =>
-    dispatch({  type: HOME_PAGE_UNLOADED })
+    dispatch({ type: HOME_PAGE_UNLOADED })
 });
 
-class Home extends React.Component {
+class Home extends Component {
   componentWillMount() {
     const tab = this.props.token ? 'feed' : 'all';
-    const articlesPromise = this.props.token ?
-      agent.Articles.feed :
-      agent.Articles.all;
+    const { Articles: { feed, all } , Tags } = agent;
+    const articlesPromise = this.props.token ? feed : all;
 
-    this.props.onLoad(tab, articlesPromise, Promise.all([agent.Tags.getAll(), articlesPromise()]));
+    this.props.onLoad(tab, articlesPromise, Promise.all([Tags.getAll(), articlesPromise()]));
   }
 
   componentWillUnmount() {
@@ -41,7 +37,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className="home-page">
+      <div className='home-page'>
         <Banner token={this.props.token} appName={this.props.appName} />
       </div>
     );
