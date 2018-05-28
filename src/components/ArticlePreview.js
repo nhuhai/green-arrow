@@ -10,7 +10,10 @@ import {
 const FAVORITED_CLASS = 'btn btn-sm btn-primary';
 const NOT_FAVORITED_CLASS = 'btn btn-sm btn-outline-primary';
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  currentUser: state.common.currentUser
+});
+
 const mapDispatchToProps = dispatch => ({
   favorite: slug =>
     dispatch({ type: ARTICLE_FAVORITED, payload: agent.Articles.favorite(slug) }),
@@ -62,11 +65,16 @@ class ArticlePreview extends Component {
             </span>
           </div>
 
-          <div className='pull-xs-right'>
-            <button className={favoriteButtonClass} onClick={this.handleClick.bind(this)}>
-              <i className='ion-heart'></i> {favoritesCount}
-            </button>
-          </div>
+          {
+            this.props.currentUser ? (
+              <div className='pull-xs-right'>
+                <button className={favoriteButtonClass} onClick={this.handleClick.bind(this)}>
+                  <i className='ion-heart'></i> {favoritesCount}
+                </button>
+              </div>
+            ) : null
+          }
+
         </div>
 
         <Link to={`/article/${slug}`} className='preview-link'>

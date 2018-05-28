@@ -6,7 +6,8 @@ import MainView from './MainView';
 import Tags from './Tags';
 import {
   HOME_PAGE_LOADED,
-  HOME_PAGE_UNLOADED
+  HOME_PAGE_UNLOADED,
+  APPLY_TAG_FILTER
 } from '../../constants/actionTypes';
 
 const Promise = global.Promise;
@@ -21,7 +22,9 @@ const mapDispatchToProps = dispatch => ({
   onLoad: (tab, pager, payload) =>
     dispatch({ type: HOME_PAGE_LOADED, tab, pager, payload }),
   onUnload: () =>
-    dispatch({ type: HOME_PAGE_UNLOADED })
+    dispatch({ type: HOME_PAGE_UNLOADED }),
+  onClickTag: (tag, pager, payload) =>
+    dispatch({ type: APPLY_TAG_FILTER, tag, pager, payload })
 });
 
 class Home extends Component {
@@ -51,7 +54,8 @@ class Home extends Component {
                 <p>Popular Tags</p>
 
                 <Tags
-                  tags={this.props.tags} />
+                  tags={this.props.tags}
+                  onClickTag={this.props.onClickTag} />
               </div>
             </div>
           </div>

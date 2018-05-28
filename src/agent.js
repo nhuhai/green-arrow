@@ -45,6 +45,8 @@ const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
 const Articles = {
   all: page =>
     requests.get(`/articles?${limit(10, page)}`),
+  byTag: (tag, page) =>
+    requests.get(`/articles?tag=${encode(tag)}&${limit(10, page)}`),
   feed: () =>
     requests.get(`/articles/feed?${limit(10)}`),
   favorite: slug =>

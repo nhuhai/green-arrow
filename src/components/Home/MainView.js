@@ -26,6 +26,20 @@ class GlobalFeedTab extends Component {
   }
 }
 
+const TagFilterTab = props => {
+  if (!props.tag) {
+    return null;
+  }
+
+  return (
+    <li className='nav-item'>
+      <a href='' className='nav-link active'>
+        <i className='ion-pound'></i> {props.tag}
+      </a>
+    </li>
+  );
+};
+
 const mapStateToProps = state => ({
   ...state.articleList,
   tags: state.home.tags,
@@ -42,6 +56,8 @@ const MainView = props => {
       <div className='feed-toggle'>
         <ul className='nav nav-pills outline-active'>
           <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
+
+          <TagFilterTab tag={props.tag} />
         </ul>
 
         <ArticleList

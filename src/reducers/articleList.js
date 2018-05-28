@@ -4,7 +4,8 @@ import {
   HOME_PAGE_UNLOADED,
   CHANGE_TAB,
   ARTICLE_FAVORITED,
-  ARTICLE_UNFAVORITED
+  ARTICLE_UNFAVORITED,
+  APPLY_TAG_FILTER
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -12,7 +13,8 @@ const initialState = {
   articles: [],
   articlesCount: 0,
   currentPage: 0,
-  tab: ''
+  tab: '',
+  tag: null
 };
 
 export default (state = initialState, action) => {
@@ -34,7 +36,8 @@ export default (state = initialState, action) => {
         articles: action.payload.articles,
         articlesCount: action.payload.articlesCount,
         currentPage: 0,
-        tab: action.tab
+        tab: action.tab,
+        tag: null
       };
 
     case ARTICLE_FAVORITED:
@@ -52,6 +55,17 @@ export default (state = initialState, action) => {
 
           return article;
         })
+      };
+
+    case APPLY_TAG_FILTER:
+      return {
+        ...state,
+        pager: action.pager,
+        articles: action.payload.articles,
+        articlesCount: action.payload.articlesCount,
+        tab: null,
+        tag: action.tag,
+        currentPage: 0
       };
 
     case HOME_PAGE_UNLOADED:
