@@ -1,34 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import agent from '../../agent';
 
-const Tags = props => {
-  const tags = props.tags;
-  if (tags) {
-    return (
-      <div className="tag-list">
-        {
-          tags.map(tag => {
-            const handleClick = ev => {
-              ev.preventDefault();
-              props.onClickTag(tag, page => agent.Articles.byTag(tag, page), agent.Articles.byTag(tag));
-            };
+class Tags extends Component {
+  render() {
+    if (!this.props.tags) {
+      return <div>Loading Tags...</div>;
+    }
 
-            return (
-              <a
-                href=""
-                className="tag-default tag-pill"
-                key={tag}
-                onClick={handleClick}>
-                {tag}
-              </a>
-            );
-          })
+    return (
+      <div className='tag-list'>
+        {
+          this.props.tags.map(tag =>
+            <a href='' className='tag-default tag-pill' key={tag}>
+              {tag}
+            </a>
+          )
         }
       </div>
-    );
-  } else {
-    return (
-      <div>Loading Tags...</div>
     );
   }
 };

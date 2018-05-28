@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../agent';
 import Banner from './Banner';
+import Tags from './Tags';
 import {
   HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED
@@ -39,6 +40,21 @@ class Home extends Component {
     return (
       <div className='home-page'>
         <Banner token={this.props.token} appName={this.props.appName} />
+
+        <div className='container page'>
+          <div className='row'>
+            {/* <MainView /> */}
+
+            <div className='col-md-3'>
+              <div className='sidebar'>
+                <p>Popular Tags</p>
+
+                <Tags
+                  tags={this.props.tags} />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

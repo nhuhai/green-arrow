@@ -6,7 +6,8 @@ import {
   LOGOUT,
   LOGIN,
   LOGIN_PAGE_UNLOADED,
-  SETTINGS_PAGE_UNLOADED
+  SETTINGS_PAGE_UNLOADED,
+  HOME_PAGE_UNLOADED
 } from "../constants/actionTypes";
 
 const defaultState = {
@@ -46,6 +47,7 @@ export default (state = defaultState, action) => {
     case LOGIN_PAGE_UNLOADED:
     case SETTINGS_PAGE_UNLOADED:
     case REGISTER_PAGE_UNLOADED:
+    case HOME_PAGE_UNLOADED:
       return { ...state, viewChangeCounter: state.viewChangeCounter + 1 };
 
     default:
