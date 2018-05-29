@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import agent from '../agent';
+import ArticleList from './ArticleList';
 import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
@@ -60,6 +61,7 @@ const FollowUserButton = props => {
 };
 
 const mapStateToProps = state => ({
+  ...state.articleList,
   currentUser: state.common.currentUser,
   profile: state.profile
 });
@@ -79,7 +81,10 @@ class Profile extends Component {
   componentWillMount() {
     const username = this.props.match.params.username;
 
-    this.props.onLoad(agent.Profile.get(username));
+    this.props.onLoad(Promise.all([
+      agent.Profile.get(username),
+      agent.Articles.byAuthor(username)
+    ]));
   }
 
   componentWillUnmount() {
@@ -111,7 +116,7 @@ class Profile extends Component {
   }
 
   render() {
-    const profile = this.props.profile;
+    const { profile, pager, articles, articlesCount, currentPage } = this.props;
     const currentUser = this.props.currentUser;
     const { image, username, bio } = profile;
 
@@ -153,6 +158,12 @@ class Profile extends Component {
               <div className='articles-toggle'>
                 {this.renderTabs()}
               </div>
+
+              <ArticleList
+                pager={pager}
+                articles={articles}
+                articlesCount={articlesCount}
+                currentPage={currentPage} />
 
             </div>
           </div>

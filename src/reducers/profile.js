@@ -13,7 +13,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case PROFILE_PAGE_LOADED:
       return {
-        ...action.payload.profile
+        ...action.payload[0].profile
       };
 
     case FOLLOW_USER:

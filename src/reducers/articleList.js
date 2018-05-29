@@ -5,7 +5,8 @@ import {
   CHANGE_TAB,
   ARTICLE_FAVORITED,
   ARTICLE_UNFAVORITED,
-  APPLY_TAG_FILTER
+  APPLY_TAG_FILTER,
+  PROFILE_PAGE_LOADED
 } from '../constants/actionTypes';
 
 const initialState = {
@@ -74,6 +75,15 @@ export default (state = initialState, action) => {
         articles: action.payload.articles,
         articlesCount: action.payload.articlesCount,
         currentPage: action.page
+      };
+
+    case PROFILE_PAGE_LOADED:
+      return {
+        ...state,
+        pager: action.pager,
+        articles: action.payload[1].articles,
+        articlesCount: action.payload[1].articlesCount,
+        currentPage: 0
       };
 
     case HOME_PAGE_UNLOADED:

@@ -90,8 +90,7 @@ const MainView = props => {
           pager={props.pager}
           articles={props.articles}
           articlesCount={props.articlesCount}
-          currentPage={props.currentPage}
-          loading={props.loading} />
+          currentPage={props.currentPage} />
       </div>
     </div>
   );
