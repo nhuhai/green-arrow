@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   pager: null,
-  articles: [],
+  articles: null,
   articlesCount: 0,
   currentPage: 0,
   tab: '',
@@ -66,6 +66,14 @@ export default (state = initialState, action) => {
         tab: null,
         tag: action.tag,
         currentPage: 0
+      };
+
+    case SET_PAGE:
+      return {
+        ...state,
+        articles: action.payload.articles,
+        articlesCount: action.payload.articlesCount,
+        currentPage: action.page
       };
 
     case HOME_PAGE_UNLOADED:

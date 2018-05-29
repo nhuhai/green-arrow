@@ -6,6 +6,27 @@ import {
   CHANGE_TAB
 } from '../../constants/actionTypes';
 
+const YourFeedTab = props => {
+  if (!props.token) {
+    return null;
+  }
+
+  const clickHandler = event => {
+    event.preventDefault();
+    props.onTabClick('feed', agent.Articles.feed, agent.Articles.feed());
+  };
+
+  return (
+    <li className='nav-item'>
+      <a href=''
+        className={props.tab === 'feed' ? 'nav-link active' : 'nav-link'}
+        onClick={clickHandler}>
+        Your Feed
+      </a>
+    </li>
+  );
+};
+
 class GlobalFeedTab extends Component {
   onTabClick(event) {
     event.preventDefault();
@@ -32,7 +53,7 @@ const TagFilterTab = props => {
   }
 
   return (
-    <li className='nav-item'>
+    <li className='nav-item' onClick={e => e.preventDefault()}>
       <a href='' className='nav-link active'>
         <i className='ion-pound'></i> {props.tag}
       </a>
@@ -55,6 +76,11 @@ const MainView = props => {
     <div className='col-md-9'>
       <div className='feed-toggle'>
         <ul className='nav nav-pills outline-active'>
+          <YourFeedTab
+            token={props.token}
+            tab={props.tab}
+            onTabClick={props.onTabClick} />
+
           <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
 
           <TagFilterTab tag={props.tag} />
