@@ -55,9 +55,19 @@ const Articles = {
     requests.del(`/articles/${slug}/favorite`)
 };
 
+const Profile = {
+  get: username =>
+    requests.get(`/profiles/${username}`),
+  follow: username =>
+    requests.post(`/profiles/${username}/follow`),
+  unfollow: username =>
+    requests.del(`/profiles/${username}/follow`)
+};
+
 export default {
   Auth,
   Articles,
   Tags,
+  Profile,
   setToken: _token => { token = _token; }
 };

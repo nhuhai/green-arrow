@@ -8,6 +8,7 @@ import Home from './Home';
 import Login from './Login';
 import Register from './Register';
 import Settings from './Settings';
+import Profile from './Profile';
 import { store } from '../store';
 import agent from '../agent';
 
@@ -59,6 +60,7 @@ class App extends Component {
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
             <Route path='/settings' component={Settings} />
+            <Route path='/@:username' component={Profile} />
           </Switch>
         </div>
       );
