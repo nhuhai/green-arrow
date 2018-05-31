@@ -9,6 +9,8 @@ import Login from './Login';
 import Register from './Register';
 import Settings from './Settings';
 import Profile from './Profile';
+import Editor from './Editor';
+import Article from './Article';
 import { store } from '../store';
 import agent from '../agent';
 
@@ -59,6 +61,9 @@ class App extends Component {
             <Route exact path='/' component={Home} />
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
+            <Route path='/editor/:slug' component={Editor} />
+            <Route path='/editor' component={Editor} />
+            <Route path='/article/:id' component={Article} />
             <Route path='/settings' component={Settings} />
             <Route path='/@:username' component={Profile} />
           </Switch>

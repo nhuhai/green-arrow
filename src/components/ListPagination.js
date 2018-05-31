@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import agent from '../agent';
 import { SET_PAGE } from '../constants/actionTypes';
 
 const mapStateToProps = state => ({});

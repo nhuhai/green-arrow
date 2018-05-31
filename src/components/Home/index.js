@@ -15,7 +15,8 @@ const Promise = global.Promise;
 const mapStateToProps = state => ({
   ...state.home,
   appName: state.common.appName,
-  token: state.common.token
+  token: state.common.token,
+  currentUser: state.common.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -33,7 +34,11 @@ class Home extends Component {
     const { Articles: { feed, all } , Tags } = agent;
     const articlesPromise = this.props.token ? feed : all;
 
-    this.props.onLoad(tab, articlesPromise, Promise.all([Tags.getAll(), articlesPromise()]));
+    this.props.onLoad(
+      tab,
+      articlesPromise,
+      Promise.all([Tags.getAll(), articlesPromise(this.props.currentUser.username)])
+    );
   }
 
   componentWillUnmount() {

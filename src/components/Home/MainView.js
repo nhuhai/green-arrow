@@ -13,7 +13,11 @@ const YourFeedTab = props => {
 
   const clickHandler = event => {
     event.preventDefault();
-    props.onTabClick('feed', agent.Articles.feed, agent.Articles.feed());
+    props.onTabClick(
+      'feed',
+      agent.Articles.byAuthor,
+      agent.Articles.byAuthor(props.currentUser.username, 0)
+    );
   };
 
   return (
@@ -64,7 +68,8 @@ const TagFilterTab = props => {
 const mapStateToProps = state => ({
   ...state.articleList,
   tags: state.home.tags,
-  token: state.common.token
+  token: state.common.token,
+  currentUser: state.common.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -79,6 +84,7 @@ const MainView = props => {
           <YourFeedTab
             token={props.token}
             tab={props.tab}
+            currentUser={props.currentUser}
             onTabClick={props.onTabClick} />
 
           <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />

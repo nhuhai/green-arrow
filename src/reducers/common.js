@@ -7,7 +7,8 @@ import {
   LOGIN,
   LOGIN_PAGE_UNLOADED,
   SETTINGS_PAGE_UNLOADED,
-  HOME_PAGE_UNLOADED
+  HOME_PAGE_UNLOADED,
+  ARTICLE_SUBMITTED
 } from "../constants/actionTypes";
 
 const defaultState = {
@@ -43,6 +44,10 @@ export default (state = defaultState, action) => {
 
     case LOGOUT:
       return { ...state, redirectTo: '/', token: null, currentUser: null};
+
+    case ARTICLE_SUBMITTED:
+      const redirectUrl = `/article/${action.payload.article.slug}`;
+      return { ...state, redirectTo: redirectUrl };
 
     case LOGIN_PAGE_UNLOADED:
     case SETTINGS_PAGE_UNLOADED:

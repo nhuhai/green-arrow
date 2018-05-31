@@ -42,6 +42,7 @@ const Tags = {
 };
 
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
+const omitSlug = article => Object.assign({}, article, { slug: undefined });
 const Articles = {
   all: page =>
     requests.get(`/articles?${limit(10, page)}`),
@@ -49,12 +50,24 @@ const Articles = {
     requests.get(`/articles?tag=${encode(tag)}&${limit(10, page)}`),
   byAuthor: (author, page) =>
     requests.get(`/articles?author=${encode(author)}&${limit(5, page)}`),
-  feed: () =>
-    requests.get(`/articles/feed?${limit(10)}`),
+  feed: (author) =>
+    // requests.get(`/articles/feed?${limit(10)}`), // feed is broken
+    requests.get(`/articles?author=${encode(author)}&${limit(10)}`),
   favorite: slug =>
     requests.post(`/articles/${slug}/favorite`),
   unfavorite: slug =>
-    requests.del(`/articles/${slug}/favorite`)
+    requests.del(`/articles/${slug}/favorite`),
+  get: slug =>
+    requests.get(`/articles/${slug}`),
+  create: article =>
+    requests.post('/articles', { article }),
+  update: article =>
+    requests.put(`/articles/${article.slug}`, { article: omitSlug(article) })
+};
+
+const Comments = {
+  forArticle: slug =>
+    requests.get(`/articles/${slug}/comments`)
 };
 
 const Profile = {
@@ -70,6 +83,7 @@ export default {
   Auth,
   Articles,
   Tags,
+  Comments,
   Profile,
   setToken: _token => { token = _token; }
 };
