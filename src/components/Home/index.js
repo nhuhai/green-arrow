@@ -33,11 +33,12 @@ class Home extends Component {
     const tab = this.props.token ? 'feed' : 'all';
     const { Articles: { feed, all } , Tags } = agent;
     const articlesPromise = this.props.token ? feed : all;
+    const username = this.props.currentUser ? this.props.currentUser.username : '';
 
     this.props.onLoad(
       tab,
       articlesPromise,
-      Promise.all([Tags.getAll(), articlesPromise(this.props.currentUser.username)])
+      Promise.all([Tags.getAll(), articlesPromise(username)])
     );
   }
 
