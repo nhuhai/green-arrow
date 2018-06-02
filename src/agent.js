@@ -62,7 +62,9 @@ const Articles = {
   create: article =>
     requests.post('/articles', { article }),
   update: article =>
-    requests.put(`/articles/${article.slug}`, { article: omitSlug(article) })
+    requests.put(`/articles/${article.slug}`, { article: omitSlug(article) }),
+  del: slug =>
+    requests.del(`/articles/${slug}`)
 };
 
 const Comments = {
