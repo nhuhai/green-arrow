@@ -9,14 +9,38 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class CommentInput extends Component {
+  constructor() {
+    super();
+    this.state = {
+      body: ''
+    };
+  }
+
+  setBody(event) {
+    this.setState({ body: event.target.value });
+  }
+
+  createComment(event) {
+    event.preventDefault();
+    const payload = agent.Comments.create(
+      this.props.slug,
+      { body: this.state.body }
+    );
+
+    this.setState({ body: '' });
+    this.props.onSubmit(payload);
+  }
+
   render() {
     return (
-      <form className='card comment-form'>
+      <form className='card comment-form' onSubmit={this.createComment.bind(this)}>
         <div className='card-block'>
           <textarea
             className='form-control'
             placeholder='Write a comment...'
-            rows='3'>
+            rows='3'
+            value={this.state.body}
+            onChange={this.setBody.bind(this)}>
           </textarea>
           <div className='card-footer'>
             <img

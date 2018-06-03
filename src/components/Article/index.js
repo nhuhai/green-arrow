@@ -38,7 +38,7 @@ class Article extends Component {
       return null;
     }
 
-    const { article, currentUser, comments = [], commentErrors } = this.props;
+    const { article, currentUser, comments, commentErrors } = this.props;
     const { body, title, tagList, description, author } = article;
 
     const markup = { __html: marked(body, { sanitize: true })};
@@ -63,7 +63,7 @@ class Article extends Component {
 
             <ul className='tag-list'>
               {
-                this.props.article.tagList.map(tag => {
+                tagList.map(tag => {
                   return (
                     <li
                       className='tag-default tag-pill tag-outline'
@@ -83,7 +83,7 @@ class Article extends Component {
               currentUser={currentUser}
               errors={commentErrors}
               slug={article.slug}
-              comments={comments} />
+              comments={comments || []} />
           </div>
         </div>
       </div>

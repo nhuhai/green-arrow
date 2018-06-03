@@ -6,11 +6,12 @@ const Comment = props => {
   const comment = props.comment;
   const { body, author: { username, image }, createdAt, id } = comment;
   const show = props.currentUser && props.currentUser.username === username;
+  console.log('id: ' + id);
 
   return (
     <div className='card'>
       <div className='card-block'>
-        <p className='card-text'>{body}></p>
+        <p className='card-text'>{body}</p>
       </div>
 
       <div className='card-footer'>
@@ -28,7 +29,7 @@ const Comment = props => {
         <span className='date-posted'>
           {new Date(createdAt).toDateString()}
         </span>
-        <DeleteButton show={show} slug={props.slug} comment={id} />
+        <DeleteButton show={show} slug={props.slug} commentId={id} />
       </div>
     </div>
   );
