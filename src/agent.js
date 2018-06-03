@@ -55,6 +55,8 @@ const Articles = {
     requests.get(`/articles?author=${encode(author)}&${limit(10)}`),
   favorite: slug =>
     requests.post(`/articles/${slug}/favorite`),
+  favoritedBy: (author, page) =>
+    requests.get(`/articles?favorited=${encode(author)}&${limit(5, page)}`),
   unfavorite: slug =>
     requests.del(`/articles/${slug}/favorite`),
   get: slug =>

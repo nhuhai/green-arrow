@@ -174,3 +174,4 @@ class Profile extends Component {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export { Profile, mapStateToProps };

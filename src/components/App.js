@@ -9,6 +9,7 @@ import Login from './Login';
 import Register from './Register';
 import Settings from './Settings';
 import Profile from './Profile';
+import ProfileFavorites from './ProfileFavorites';
 import Editor from './Editor';
 import Article from './Article';
 import { store } from '../store';
@@ -65,6 +66,7 @@ class App extends Component {
             <Route path='/editor' component={Editor} />
             <Route path='/article/:id' component={Article} />
             <Route path='/settings' component={Settings} />
+            <Route path='/@:username/favorites' component={ProfileFavorites} />
             <Route path='/@:username' component={Profile} />
           </Switch>
         </div>
