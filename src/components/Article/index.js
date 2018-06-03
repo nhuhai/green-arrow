@@ -38,7 +38,7 @@ class Article extends Component {
       return null;
     }
 
-    const { article, currentUser} = this.props;
+    const { article, currentUser, comments = [], commentErrors } = this.props;
     const { body, title, tagList, description, author } = article;
 
     const markup = { __html: marked(body, { sanitize: true })};
@@ -80,7 +80,10 @@ class Article extends Component {
 
           <div className='row'>
             <CommentContainer
-              currentUser={currentUser} />
+              currentUser={currentUser}
+              errors={commentErrors}
+              slug={article.slug}
+              comments={comments} />
           </div>
         </div>
       </div>

@@ -11,8 +11,7 @@ import {
   ARTICLE_SUBMITTED,
   DELETE_ARTICLE,
   SETTINGS_SAVED
-} from "../constants/actionTypes";
-import { stat } from "fs";
+} from '../constants/actionTypes';
 
 const defaultState = {
   appName: 'Conduit',
