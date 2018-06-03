@@ -21,6 +21,6 @@ export default (state = initialState, action) => {
 
     case ARTICLE_PAGE_UNLOADED:
     default:
-      return state;
+      return initialState;
   }
 };

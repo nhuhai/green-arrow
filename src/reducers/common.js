@@ -9,8 +9,10 @@ import {
   SETTINGS_PAGE_UNLOADED,
   HOME_PAGE_UNLOADED,
   ARTICLE_SUBMITTED,
-  DELETE_ARTICLE
+  DELETE_ARTICLE,
+  SETTINGS_SAVED
 } from "../constants/actionTypes";
+import { stat } from "fs";
 
 const defaultState = {
   appName: 'Conduit',
@@ -52,6 +54,13 @@ export default (state = defaultState, action) => {
 
     case DELETE_ARTICLE:
       return { ...state, redirectTo: '/' };
+
+    case SETTINGS_SAVED:
+      return {
+        ...state,
+        redirectTo: action.error ? null : '/',
+        currentUser: action.payload.user ? action.payload.user : state.currentUser
+      };
 
     case LOGIN_PAGE_UNLOADED:
     case SETTINGS_PAGE_UNLOADED:
